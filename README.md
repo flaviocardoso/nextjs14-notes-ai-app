@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Projeto desenvolvido por codeInFlow do youtube
+
+## O que tem no projeto
+
+Projeto é sobre criar, atualizar e deletar notas no modelo anterior, por api.
+
+- Prisma ORM
+- Shadcn - components criados automaticamente
+- Zod e react hook usado em conjunto para validação
+- dark mode com shadcn theme
+- clerk - para autenticação do usuário
+- Ferramentas do proprio next para o chat bot
+- Openai - chat bot
+- Pinecone - vetor para o chat bot
