@@ -26,6 +26,7 @@ import LoadingButton from "./ui/loading-button";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Note } from "@prisma/client";
+import { createNotePosting, deleteNotePosting, updateNotePosting } from "@/app/notes/actions";
 
 interface AddEditNoteDialogProps {
   open: boolean;
@@ -54,22 +55,12 @@ export default function AddEditNoteDialog({
   } = form;
 
   const onSubmit = handleSubmit(
-    async (values: typeCreateNoteSchema) => {
-      // const formData: any = new FormData();
-      // const {title, content} = values;
+    async (values: typeCreateNoteSchema | typeUpdateNoteSchema) => {
       try {
         if (noteToEdit) {
-          const response = await fetch("/api/notes", {
-            method: "PUT",
-            body: JSON.stringify({ id: noteToEdit.id, ...values }),
-          });
-          if (!response.ok) throw Error("Status code: " + response.status);
+          await updateNotePosting({ id: noteToEdit.id, ...values });
         } else {
-          const response = await fetch("/api/notes", {
-            method: "POST",
-            body: JSON.stringify(values),
-          });
-          if (!response.ok) throw Error("Status code: " + response.status);
+          await createNotePosting(values);
           reset();
         }
         router.refresh();
@@ -90,11 +81,7 @@ export default function AddEditNoteDialog({
     if (!noteToEdit) return;
     setDeleteInProgress(true);
     try {
-      const response = await fetch("/api/notes", {
-        method: "DELETE",
-        body: JSON.stringify({ id: noteToEdit.id }),
-      });
-      if (!response.ok) throw Error("Status code: " + response.status);
+      await deleteNotePosting(noteToEdit.id);
       router.refresh();
       setOpen(false);
     } catch (error) {
